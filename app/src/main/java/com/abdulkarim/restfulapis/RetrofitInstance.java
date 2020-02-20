@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitInstance {
 
     private static Retrofit retrofit;
-    private static final String BASE_URL = "https://iotait.tech/";
+    private static final String BASE_URL = "https://jsonplaceholder.typicode.com/";
 
     public static Retrofit getInstance (){
         if (retrofit == null){
