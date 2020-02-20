@@ -1,6 +1,8 @@
 package com.abdulkarim.restfulapis;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -8,6 +10,7 @@ import android.widget.Toast;
 
 import com.abdulkarim.restfulapis.user_model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -21,13 +24,18 @@ public class MainActivity extends AppCompatActivity {
     private WebServices webServices;
 
     private TextView textView;
+    private List<User> userList;
+    private RecyclerView recyclerView;
+    private MyAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = findViewById(R.id.textView);
+        init();
+
+        userList = new ArrayList<>();
 
         retrofit = RetrofitInstance.getInstance();
 
@@ -37,7 +45,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if (response.isSuccessful()){
-                    Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
+
+
+                    userList = response.body();
+
+                    Toast.makeText(MainActivity.this, ""+userList.size(), Toast.LENGTH_SHORT).show();
+
+                    myAdapter = new MyAdapter(response.body(),MainActivity.this);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                    recyclerView.setAdapter(myAdapter);
                 }
             }
 
@@ -48,5 +64,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void init() {
+        recyclerView = findViewById(R.id.recyclerViewId);
     }
 }
