@@ -1,5 +1,6 @@
 package com.abdulkarim.restfulapis;
 
+import com.abdulkarim.restfulapis.user_model.Post;
 import com.abdulkarim.restfulapis.user_model.User;
 
 import java.util.List;
@@ -11,4 +12,8 @@ public interface WebServices {
 
     @GET("users")
     Call<List<User>> getAllUsers();
+
+    @GET("posts")
+    Call<List<Post>> getAllPosts();
+
 }

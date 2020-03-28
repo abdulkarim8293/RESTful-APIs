@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.abdulkarim.restfulapis.user_model.Post;
 import com.abdulkarim.restfulapis.user_model.User;
 
 import java.util.ArrayList;
@@ -41,6 +42,32 @@ public class MainActivity extends AppCompatActivity {
 
         webServices = retrofit.create(WebServices.class);
 
+
+        //getAllUsersInfo();
+        getAllPosts();
+
+    }
+
+    private void getAllPosts() {
+        webServices.getAllPosts().enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                if (response.isSuccessful()){
+                    Toast.makeText(MainActivity.this, "Id : "+response.body().get(1).getId()
+                            +"\nUser Id : "+response.body().get(1).getUserId()+"\nTitle : "+response.body().get(1).getTitle()+"\nBody : "+response.body().get(1).getBody(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+
+                Toast.makeText(MainActivity.this, ""+t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void getAllUsersInfo() {
+
         webServices.getAllUsers().enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
@@ -63,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private void init() {
