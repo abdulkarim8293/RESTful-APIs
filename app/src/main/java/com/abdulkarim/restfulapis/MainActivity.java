@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.abdulkarim.restfulapis.user_model.Albums;
 import com.abdulkarim.restfulapis.user_model.Comment;
 import com.abdulkarim.restfulapis.user_model.Post;
 import com.abdulkarim.restfulapis.user_model.User;
@@ -46,9 +47,27 @@ public class MainActivity extends AppCompatActivity {
 
         //getAllUsersInfo();
         //getAllPosts();
+        //getAllPostComments();
+        getAllAlbums();
 
-        getAllPostComments();
+    }
 
+    private void getAllAlbums() {
+        webServices.getAllAlbums().enqueue(new Callback<List<Albums>>() {
+            @Override
+            public void onResponse(Call<List<Albums>> call, Response<List<Albums>> response) {
+
+                if (response.isSuccessful()){
+                    Toast.makeText(MainActivity.this, ""+response.body().get(0).getTitle(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Albums>> call, Throwable t) {
+
+                Toast.makeText(MainActivity.this, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void getAllPostComments() {
