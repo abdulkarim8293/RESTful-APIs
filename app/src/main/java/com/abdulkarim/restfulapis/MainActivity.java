@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.abdulkarim.restfulapis.user_model.Comment;
 import com.abdulkarim.restfulapis.user_model.Post;
 import com.abdulkarim.restfulapis.user_model.User;
 
@@ -44,7 +45,27 @@ public class MainActivity extends AppCompatActivity {
 
 
         //getAllUsersInfo();
-        getAllPosts();
+        //getAllPosts();
+
+        getAllPostComments();
+
+    }
+
+    private void getAllPostComments() {
+        webServices.getAllComments().enqueue(new Callback<List<Comment>>() {
+            @Override
+            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
+                if (response.isSuccessful()){
+                    Toast.makeText(MainActivity.this, ""+response.body().get(0).getName(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Comment>> call, Throwable t) {
+
+                Toast.makeText(MainActivity.this, ""+t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 

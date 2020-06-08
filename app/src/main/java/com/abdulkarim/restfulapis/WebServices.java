@@ -1,5 +1,6 @@
 package com.abdulkarim.restfulapis;
 
+import com.abdulkarim.restfulapis.user_model.Comment;
 import com.abdulkarim.restfulapis.user_model.Post;
 import com.abdulkarim.restfulapis.user_model.User;
 
@@ -15,5 +16,8 @@ public interface WebServices {
 
     @GET("posts")
     Call<List<Post>> getAllPosts();
+
+    @GET("comments")
+    Call<List<Comment>> getAllComments();
 
 }
