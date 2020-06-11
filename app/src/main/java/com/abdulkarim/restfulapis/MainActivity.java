@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<Albums>> call, Response<List<Albums>> response) {
 
                 if (response.isSuccessful()){
-                    Toast.makeText(MainActivity.this, ""+response.body().get(0).getTitle(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, ""+response.body().get(0).getTitle(), Toast.LENGTH_SHORT).show();
                 }
             }
 
